@@ -3,5 +3,18 @@
 
 <body>
 
+    <div th:each="p : ${pictures}">
+        <img th:src="${p.getUrl()}" th:alt="${p.getTitle()}"/></br>
+        <form th:action="@{/pictures/delete}"
+              th:method="delete">
+            <input type="hidden" th:value="${p.publicId}"/>
+            <input type="submit" th:value="Delete"/>
+        </form>
+        </br>
+        
+    </div>
+
+
+
 </body>
 </html>

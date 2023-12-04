@@ -1,6 +1,6 @@
 package bg.softuni.cloudinary2.web;
 
-import bg.softuni.cloudinary2.PictureRepository;
+import bg.softuni.cloudinary2.repository.PictureRepository;
 import bg.softuni.cloudinary2.binding.PictureBindingModel;
 import bg.softuni.cloudinary2.model.entity.PictureEntity;
 import bg.softuni.cloudinary2.model.view.PictureViewModel;
@@ -8,8 +8,10 @@ import bg.softuni.cloudinary2.service.CloudinaryImage;
 import bg.softuni.cloudinary2.service.CloudinaryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -46,6 +48,13 @@ public class PicturesController {
                 .setTitle(title)
                 .setUrl(upload.getUrl());
     }
+    @DeleteMapping("/pictures/delete")
+    public String delete(@RequestParam("publicId") String publicId){
+        if(cloudinaryService.delete(publicId)) {
+            pictureRepository.deleteAllByPublicId(publicId);
+        }
+        return "redirect:/pictures/all";
+    }
 
     @GetMapping("/pictures/all")
     public String all(Model model){
@@ -54,7 +63,7 @@ public class PicturesController {
                 .stream()
                 .map(this::asViewModel)
                 .collect(Collectors.toList());
-        
+
         model.addAttribute("pictures", pictures);
 
         return "all";
