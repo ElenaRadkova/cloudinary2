@@ -16,31 +16,35 @@ public class PictureEntity {
         return id;
     }
 
-    public void setId(Long id) {
+    public PictureEntity setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public PictureEntity setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public PictureEntity setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public String getPublicId() {
         return publicId;
     }
 
-    public void setPublicId(String publicId) {
+    public PictureEntity setPublicId(String publicId) {
         this.publicId = publicId;
+        return this;
     }
 }
