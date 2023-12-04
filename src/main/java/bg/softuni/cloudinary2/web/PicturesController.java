@@ -3,14 +3,18 @@ package bg.softuni.cloudinary2.web;
 import bg.softuni.cloudinary2.PictureRepository;
 import bg.softuni.cloudinary2.binding.PictureBindingModel;
 import bg.softuni.cloudinary2.model.entity.PictureEntity;
+import bg.softuni.cloudinary2.model.view.PictureViewModel;
 import bg.softuni.cloudinary2.service.CloudinaryImage;
 import bg.softuni.cloudinary2.service.CloudinaryService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class PicturesController {
@@ -44,9 +48,25 @@ public class PicturesController {
     }
 
     @GetMapping("/pictures/all")
-    public String all(){
+    public String all(Model model){
+        List<PictureViewModel> pictures = pictureRepository
+                .findAll()
+                .stream()
+                .map(this::asViewModel)
+                .collect(Collectors.toList());
+        
+        model.addAttribute("pictures", pictures);
+
         return "all";
     }
+
+    private PictureViewModel asViewModel(PictureEntity picture) {
+        return new PictureViewModel()
+                .setPublicId(picture.getPublicId())
+                .setTitle(picture.getTitle())
+                .setUrl(picture.getUrl());
+    }
+
     @PostMapping("pictures/all")
     public String allPictures() {
         //todo
