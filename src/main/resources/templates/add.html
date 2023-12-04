@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<h1>Choose picture</h1>
+<!--        Много важно е добавянето на този тип, за да може формата да не се събмитва с едно боди, а да бъде на много части-->
+<form th:method="POST" enctype="multipart/form-data">
+    <input type="text", name="title" /></br>
+    <input type="file", name="picture" /></br>
+    <input type="submit", value="Submit" />
+</form>
+</body>
+</html>
