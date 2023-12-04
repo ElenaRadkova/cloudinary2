@@ -8,15 +8,17 @@ public class CloudinaryImage {
         return url;
     }
 
-    public void setUrl(String url) {
+    public CloudinaryImage setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public String getPublicId() {
         return publicId;
     }
 
-    public void setPublicId(String publicId) {
+    public CloudinaryImage setPublicId(String publicId) {
         this.publicId = publicId;
+        return this;
     }
 }
