@@ -6,6 +6,7 @@ import bg.softuni.cloudinary2.model.entity.PictureEntity;
 import bg.softuni.cloudinary2.model.view.PictureViewModel;
 import bg.softuni.cloudinary2.service.CloudinaryImage;
 import bg.softuni.cloudinary2.service.CloudinaryService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,6 +49,7 @@ public class PicturesController {
                 .setTitle(title)
                 .setUrl(upload.getUrl());
     }
+    @Transactional
     @DeleteMapping("/pictures/delete")
     public String delete(@RequestParam("publicId") String publicId){
         if(cloudinaryService.delete(publicId)) {
